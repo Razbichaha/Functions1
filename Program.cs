@@ -70,20 +70,22 @@ namespace Functions1
 
             string tempString = lastName + " " + name + " " + patronymic;
 
-            string[] tempAddFullName = new string[fullName.Length + 1];
-            string[] tempAddPositions = new string[positions.Length + 1];
+            int increment = 1;
+
+            string[] tempFullName = ArrayCreate( fullName, increment);
+            string[] tempPositions = ArrayCreate(fullName, increment);
 
             for (int i = 0; i < fullName.Length; i++)
             {
-                tempAddFullName[i] = fullName[i];
-                tempAddPositions[i] = positions[i];
+                tempFullName[i] = fullName[i];
+                tempPositions[i] = positions[i];
             }
 
-            tempAddFullName[tempAddFullName.Length-1] = tempString;
-            tempAddPositions[tempAddPositions.Length-1] = position;
+            tempFullName[tempFullName.Length-1] = tempString;
+            tempPositions[tempPositions.Length-1] = position;
 
-            fullName = tempAddFullName;
-            positions = tempAddPositions;
+            fullName = tempFullName;
+            positions = tempPositions;
 
             DefaultMesadge(fullName, positions);
 
@@ -126,8 +128,10 @@ namespace Functions1
             string userInput = Console.ReadLine();
             Console.WriteLine();
 
-            string[] tempFullName = new string[fullName.Length - 1];
-            string[] tempPositions = new string[positions.Length - 1];
+            int increment = -1;
+
+            string[] tempFullName = ArrayCreate(fullName, increment);
+            string[] tempPositions = ArrayCreate(fullName, increment);
 
             int counterTemp = 0;
 
@@ -162,6 +166,12 @@ namespace Functions1
                     Console.WriteLine(fullName[i] + " - " + positions[i]);
                 }
             }
+        }
+        static string[] ArrayCreate(string[] array,int increment )
+        {
+            string[] temp = new string[array.Length + increment];
+
+            return temp;
         }
     }
 }
