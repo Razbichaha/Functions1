@@ -121,7 +121,6 @@ namespace Functions1
                 }
             }
         }
-       
         static void DeleteDossier(ref string[]fullName,ref string[]positions)
         {
             Console.Write("Для удаления работника введите фамилию - ");
@@ -151,7 +150,6 @@ namespace Functions1
 
             DefaultMesadge(fullName, positions);
         }
-
         static void SearchInDossier(string[] fullName, string[] positions)
         {
             Console.Write("Для поиска работника введите фамилию - ");
