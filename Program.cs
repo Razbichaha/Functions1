@@ -38,7 +38,7 @@ namespace Functions1
                         break;
                     case "найти":
                          
-                        searchInDossier(fullName, positions);
+                        SearchInDossier(fullName, positions);
 
                         break;
                     case "закрыть":
@@ -70,20 +70,20 @@ namespace Functions1
 
             string tempString = lastName + " " + name + " " + patronymic;
 
-            string[] tempFullName = new string[fullName.Length + 1];
-            string[] tempPositions = new string[positions.Length + 1];
+            string[] tempAddFullName = new string[fullName.Length + 1];
+            string[] tempAddPositions = new string[positions.Length + 1];
 
             for (int i = 0; i < fullName.Length; i++)
             {
-                tempFullName[i] = fullName[i];
-                tempPositions[i] = positions[i];
+                tempAddFullName[i] = fullName[i];
+                tempAddPositions[i] = positions[i];
             }
 
-            tempFullName[tempFullName.Length-1] = tempString;
-            tempPositions[tempPositions.Length-1] = position;
+            tempAddFullName[tempAddFullName.Length-1] = tempString;
+            tempAddPositions[tempAddPositions.Length-1] = position;
 
-            fullName = tempFullName;
-            positions = tempPositions;
+            fullName = tempAddFullName;
+            positions = tempAddPositions;
 
             DefaultMesadge(fullName, positions);
 
@@ -148,7 +148,7 @@ namespace Functions1
             DefaultMesadge(fullName, positions);
         }
 
-        static void searchInDossier(string[] fullName, string[] positions)
+        static void SearchInDossier(string[] fullName, string[] positions)
         {
             Console.Write("Для поиска работника введите фамилию - ");
             string userInput = Console.ReadLine();
