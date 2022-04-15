@@ -113,9 +113,9 @@ namespace Functions1
         {
             int userInput=0;
 
-            bool bb = true;
+            bool isContinueCycle = true;
 
-            while(bb)
+            while(isContinueCycle)
             {
             Console.Write("Для удаления работника введите его номер - ");
             string temp = Console.ReadLine();
@@ -129,7 +129,7 @@ namespace Functions1
                             userInput = int.Parse(temp);
                             if(userInput<(fullName.Length))
                             {
-                                bb = false;
+                                isContinueCycle = false;
                             }else
                             {
                                 Console.WriteLine("Вы ввели не корректный номер");
