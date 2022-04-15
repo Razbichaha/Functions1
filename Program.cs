@@ -11,7 +11,7 @@ namespace Functions1
             string[] positions = { "Должность","Суетолог","Мамолог","Технолог","Слесарь" };
             
             Console.Clear();
-            OutputMesadge();
+            OutputMenu();
 
             bool isContinueProgram = true;
 
@@ -38,7 +38,7 @@ namespace Functions1
                         break;
                     case "найти":
                          
-                        SearchInDossier(fullName, positions);
+                        IsPersonInDossier(fullName, positions);
 
                         break;
                     case "закрыть":
@@ -71,20 +71,19 @@ namespace Functions1
             string tempString = lastName + " " + name + " " + patronymic;
             int increment = 1;
 
-            fullName = SaveArray(ref fullName, fullName.Length + increment, tempString);
-            positions = SaveArray(ref positions, positions.Length + increment, position);
-
+            fullName = SaveArray(fullName, fullName.Length + increment, tempString);
+            positions = SaveArray(positions, positions.Length + increment, position);
             DefaultMesadge(fullName, positions);
-
         }
+
         static void DefaultMesadge(string[] fullName,string[] positions)
         {
             Console.Clear();
-            OutputMesadge();
+            OutputMenu();
             ShowDossier(fullName, positions);
-
         }
-        static void OutputMesadge()
+
+        static void OutputMenu()
         {
             Console.WriteLine("Для вывода данных работника наберите       - вывести");
             Console.WriteLine("Для добавления даных работника наберите    - добавить");
@@ -92,6 +91,7 @@ namespace Functions1
             Console.WriteLine("Для закрыти программы наберите             - закрыть");
             Console.WriteLine("Для поиска работника наберите              - найти");
         }
+
         static void ShowDossier(string[] fullName, string[] positions)
         {
 
@@ -100,44 +100,121 @@ namespace Functions1
             {
                 if(i!=0)
                 {
-                    Console.WriteLine(i+" " + fullName[i] + " - " + positions[i]);
+                    Console.WriteLine(i+" " + fullName[i] + " " + positions[i]);
                 }
                 else
                 {
-                    Console.WriteLine("  " + fullName[i] + " - " + positions[i]);
+                    Console.WriteLine("  " + fullName[i] + " " + positions[i]);
                 }
             }
         }
+
         static void DeleteDossier(ref string[]fullName,ref string[]positions)
         {
-            Console.Write("Для удаления работника введите фамилию - ");
-            string userInput = Console.ReadLine();
+            int userInput=0;
+
+            bool bb = true;
+
+            while(bb)
+            {
+            Console.Write("Для удаления работника введите его номер - ");
+            string temp = Console.ReadLine();
+
+                for(int i=0;i<temp.Length;i++)
+                {
+                    if(char.IsNumber(temp,i))
+                    {
+                        if ((temp.Length-1)==i)
+                        {
+                            userInput = int.Parse(temp);
+                            if(userInput<(fullName.Length))
+                            {
+                                bb = false;
+                            }else
+                            {
+                                Console.WriteLine("Вы ввели не корректный номер");
+                                temp = "";
+                                userInput = 0;
+                            }
+                        }
+                    }else
+                    {
+                        temp = "";
+                        Console.Write("Для указания работника используйте только номер ");
+                        Console.WriteLine();
+                    }
+                }
+            }
+
             Console.WriteLine();
 
             int increment = -1;
-            char divider = ' ';
 
-            fullName = SaveArray(ref fullName, fullName.Length + increment, userInput, divider);
-            positions = SaveArray(ref fullName, positions.Length + increment, userInput, divider);
+            fullName = SaveArray(fullName, fullName.Length + increment, userInput);
+            positions = SaveArray(fullName, positions.Length + increment, userInput);
 
             DefaultMesadge(fullName, positions);
         }
-        static void SearchInDossier(string[] fullName, string[] positions)
+
+        static bool IsPersonInDossier(string[] fullName, string[] positions)
         {
+            bool IsPerson = false;
             Console.Write("Для поиска работника введите фамилию - ");
             string userInput = Console.ReadLine();
             Console.WriteLine();
+            int tempI = 0;
+            
+            for (int i = 0; i < fullName.Length; i++)
+            {
+
+                if (userInput == fullName[i].Split(' ')[0])
+                {
+                    IsPerson = true;
+                    tempI = i;
+                }
+            }
+
+            if (IsPerson==true)
+            {
+                Console.WriteLine(fullName[tempI] + " - " + positions[tempI]);
+            }else
+            {
+                Console.WriteLine(userInput+" - отсутствует в базе");
+            }
+
+            return IsPerson;
+        }
+
+        static bool IsPersonInDossier(string[] fullName, string[] positions, ref int numberPerson,string userInput)
+        {
+            bool IsPerson = false;
+            int tempI = 0;
 
             for (int i = 0; i < fullName.Length; i++)
             {
 
                 if (userInput == fullName[i].Split(' ')[0])
                 {
-                    Console.WriteLine(fullName[i] + " - " + positions[i]);
+                    IsPerson = true;
+                    tempI = i;
+                    numberPerson = i;
                 }
             }
+
+            if (IsPerson == true)
+            {
+                Console.WriteLine(fullName[tempI] + " - " + positions[tempI]);
+            }
+            else
+            {
+                Console.WriteLine(userInput + " - отсутствует в базе");
+            }
+
+            return IsPerson;
         }
-        static string[] SaveArray(ref string[] array,int lengthArray, string stringText)
+
+
+        static string[] SaveArray(string[] array,int lengthArray, string stringText)
         {
             string[] temp = new string[lengthArray];
 
@@ -148,26 +225,23 @@ namespace Functions1
 
             temp[temp.Length - 1] = stringText;
 
-
             return temp;
         }
-        static string[] SaveArray(ref string[] array, int lengthArray, string stringText, char divider =' ')
+
+        static string[] SaveArray(string[] array, int lengthArray,  int userInput)
         {
             string[] temp = new string[lengthArray];
-
             int counterTemp = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
 
-                if (stringText != array[i].Split(divider)[0])
+               if(userInput!=i)
                 {
                     temp[counterTemp] = array[i];
                     counterTemp++;
                 }
             }
-
-
             return temp;
         }
     }
