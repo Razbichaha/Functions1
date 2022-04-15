@@ -185,35 +185,6 @@ namespace Functions1
             return IsPerson;
         }
 
-        static bool IsPersonInDossier(string[] fullName, string[] positions, ref int numberPerson,string userInput)
-        {
-            bool IsPerson = false;
-            int tempI = 0;
-
-            for (int i = 0; i < fullName.Length; i++)
-            {
-
-                if (userInput == fullName[i].Split(' ')[0])
-                {
-                    IsPerson = true;
-                    tempI = i;
-                    numberPerson = i;
-                }
-            }
-
-            if (IsPerson == true)
-            {
-                Console.WriteLine(fullName[tempI] + " - " + positions[tempI]);
-            }
-            else
-            {
-                Console.WriteLine(userInput + " - отсутствует в базе");
-            }
-
-            return IsPerson;
-        }
-
-
         static string[] SaveArray(string[] array,int lengthArray, string stringText)
         {
             string[] temp = new string[lengthArray];
