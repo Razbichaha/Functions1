@@ -71,8 +71,8 @@ namespace Functions1
             string tempString = lastName + " " + name + " " + patronymic;
             int increment = 1;
 
-            fullName = SaveArray(fullName, fullName.Length + increment, tempString);
-            positions = SaveArray(positions, positions.Length + increment, position);
+            fullName = EnlargeArray(fullName, fullName.Length + increment, tempString);
+            positions = EnlargeArray(positions, positions.Length + increment, position);
             DefaultMesadge(fullName, positions);
         }
 
@@ -150,8 +150,8 @@ namespace Functions1
 
             int increment = -1;
 
-            fullName = SaveArray(fullName, fullName.Length + increment, userInput);
-            positions = SaveArray(fullName, positions.Length + increment, userInput);
+            fullName = ReduceArray(fullName, fullName.Length + increment, userInput);
+            positions = ReduceArray(fullName, positions.Length + increment, userInput);
 
             DefaultMesadge(fullName, positions);
         }
@@ -185,23 +185,23 @@ namespace Functions1
             return IsPerson;
         }
 
-        static string[] SaveArray(string[] array,int lengthArray, string stringText)
+        static string[] EnlargeArray(string[] array,int lengthArray, string stringText)
         {
-            string[] temp = new string[lengthArray];
+            string[] tempArray = new string[lengthArray];
 
             for (int i = 0; i < array.Length; i++)
             {
-                temp[i] = array[i];
+                tempArray[i] = array[i];
             }
 
-            temp[temp.Length - 1] = stringText;
+            tempArray[tempArray.Length - 1] = stringText;
 
-            return temp;
+            return tempArray;
         }
 
-        static string[] SaveArray(string[] array, int lengthArray,  int userInput)
+        static string[] ReduceArray(string[] array, int lengthArray,  int userInput)
         {
-            string[] temp = new string[lengthArray];
+            string[] tempArray = new string[lengthArray];
             int counterTemp = 0;
 
             for (int i = 0; i < array.Length; i++)
@@ -209,11 +209,11 @@ namespace Functions1
 
                if(userInput!=i)
                 {
-                    temp[counterTemp] = array[i];
+                    tempArray[counterTemp] = array[i];
                     counterTemp++;
                 }
             }
-            return temp;
+            return tempArray;
         }
     }
 }
