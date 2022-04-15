@@ -69,23 +69,10 @@ namespace Functions1
             Console.WriteLine();
 
             string tempString = lastName + " " + name + " " + patronymic;
-
             int increment = 1;
 
-            string[] tempFullName = ArrayCreate( fullName, increment);
-            string[] tempPositions = ArrayCreate(fullName, increment);
-
-            for (int i = 0; i < fullName.Length; i++)
-            {
-                tempFullName[i] = fullName[i];
-                tempPositions[i] = positions[i];
-            }
-
-            tempFullName[tempFullName.Length-1] = tempString;
-            tempPositions[tempPositions.Length-1] = position;
-
-            fullName = tempFullName;
-            positions = tempPositions;
+            fullName = SaveArray(ref fullName, fullName.Length + increment, tempString);
+            positions = SaveArray(ref positions, positions.Length + increment, position);
 
             DefaultMesadge(fullName, positions);
 
@@ -128,25 +115,10 @@ namespace Functions1
             Console.WriteLine();
 
             int increment = -1;
+            char divider = ' ';
 
-            string[] tempFullName = ArrayCreate(fullName, increment);
-            string[] tempPositions = ArrayCreate(fullName, increment);
-
-            int counterTemp = 0;
-
-            for (int i = 0; i < fullName.Length; i++)
-            {
-
-                if (userInput != fullName[i].Split(' ')[0]) 
-                {
-                    tempFullName[counterTemp] = fullName[i];
-                    tempPositions[counterTemp] = positions[i];
-                    counterTemp++;
-                }
-            }
-
-            fullName = tempFullName;
-            positions = tempPositions;
+            fullName = SaveArray(ref fullName, fullName.Length + increment, userInput, divider);
+            positions = SaveArray(ref fullName, positions.Length + increment, userInput, divider);
 
             DefaultMesadge(fullName, positions);
         }
@@ -165,9 +137,36 @@ namespace Functions1
                 }
             }
         }
-        static string[] ArrayCreate(string[] array,int increment )
+        static string[] SaveArray(ref string[] array,int lengthArray, string stringText)
         {
-            string[] temp = new string[array.Length + increment];
+            string[] temp = new string[lengthArray];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                temp[i] = array[i];
+            }
+
+            temp[temp.Length - 1] = stringText;
+
+
+            return temp;
+        }
+        static string[] SaveArray(ref string[] array, int lengthArray, string stringText, char divider =' ')
+        {
+            string[] temp = new string[lengthArray];
+
+            int counterTemp = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+
+                if (stringText != array[i].Split(divider)[0])
+                {
+                    temp[counterTemp] = array[i];
+                    counterTemp++;
+                }
+            }
+
 
             return temp;
         }
